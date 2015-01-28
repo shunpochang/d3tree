@@ -1,2 +1,3 @@
-# d3tree
-Library for bi-directional tree chart showing D3 children generation.
+# D3 example on drawing bidirectional tree.
+Using **D3.js** and basic crawling on **GitHub** js files to generate tree
+relationship on D3 generations.
