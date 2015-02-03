@@ -12,31 +12,16 @@ dependcies of the parent nodes.
 
 import base64
 import collections
-import cPickle
 import json
-import os
 # Using pprint instead of the usual logging as I am doing data exploration as
 # well at the same time, and will need to see the data structure.
 from pprint import pprint
 import re
-import sys
 import time
-import urllib2 as url
+
+import utilities as util
 
 GIT_SEARCH_API = 'https://api.github.com/{q}'
-
-# Add authentication and accept format to Git API request, for the basic
-# crawler, we set token as the first argument.
-API_HEADERS = [
-    ('Accept', 'application/vnd.github.v3.text-match+json'),
-    ('Authorization', 'token {user_token}'.format(user_token=sys.argv[1])),
-    ]
-
-# Specs based on direction for the crawler.
-DIRECTION_SPECS = {
-    'downward': {},
-    'upward': {}
-    }
 
 # Since most of the files we check against are front-end scripts, we first
 # check if bower.json has the dependency, and then check in package.json.
@@ -74,11 +59,11 @@ class GitCrawler(object):
         direction, tree_depth)
     self._all_repos_file_name = '{}_all_dependent_repo_names'.format(
         direction)
-    self._tree_dict = GetTreePickle(
+    self._tree_dict = util.GetTreePickle(
         self._raw_data_file_name) or collections.defaultdict(dict)
     # Read in cumulative repo names to get overall names that have been
     # found with matching dependencies. If not found, use set as default.
-    self._all_dependent_repo_names = GetTreePickle(
+    self._all_dependent_repo_names = util.GetTreePickle(
         self._all_repos_file_name) or set()
     # We currently only search for JavaScript repositories.
     self._repo_url = GIT_SEARCH_API.format(
@@ -94,7 +79,7 @@ class GitCrawler(object):
     We will get matching repositories and take the top 100 items and store the
     item's name and create time as key-value pair.
     """
-    query_output, _ = GitURLOpener(self._repo_url)
+    query_output, _ = util.GitURLOpener(self._repo_url)
     pprint('Checking dependency through %d found repos ...' % (
         min(query_output['total_count'], 100)))
     tree = self._tree_dict[self.keyword]
@@ -125,8 +110,8 @@ class GitCrawler(object):
       # and rerun this repo.
       else:
         tree[item_name] = False
-      PickleTree(self._tree_dict, self._raw_data_file_name)
-      PickleTree(self._all_dependent_repo_names, self._all_repos_file_name)
+      util.PickleTree(self._tree_dict, self._raw_data_file_name)
+      util.PickleTree(self._all_dependent_repo_names, self._all_repos_file_name)
     pprint('%d repos were found that are dependent on %s' % (
         children_count, self.keyword))
 
@@ -142,7 +127,7 @@ class GitCrawler(object):
           specified keyword is not found in the dependency.
     """
     for file_name in VERIFY_FILES:
-      file_output, _ = GitURLOpener(self._script_url.format(
+      file_output, _ = util.GitURLOpener(self._script_url.format(
           path=repo_full_name, file=file_name))
       if 'content' in file_output:
         file_dependencies = self.CheckDependency(file_output)
@@ -162,19 +147,19 @@ class GitCrawler(object):
     """
     # Skip population if the repo is already found with dependencies.
     if self.keyword in self._all_dependent_repo_names:
-      pprint ('Repo detail for %s was already included.' % self.keyword)
-    query_output, _ = GitURLOpener(self._repo_url)
+      pprint('Repo detail for %s was already included.' % self.keyword)
+    query_output, _ = util.GitURLOpener(self._repo_url)
     pprint('Getting keyword repo detail through %d found repos ...' % (
         min(query_output['total_count'], 100)))
+    # pylint: disable=undefined-loop-variable
     for item in query_output['items']:
       item_name = item['name']
       if item_name == self.keyword:
         pprint('Repo detail found for %s.' % item_name)
-        break 
+        break
     # Break function if no repo detail is found.
     if not query_output['total_count'] or item_name != self.keyword:
-      pprint ('Either %s is not found with repo detail or it was included'
-              'in a previous depth already.' % self.keyword)
+      pprint('%s is not found with repo detail.' % self.keyword)
       return
 
     all_unique_dependencies = self.GetDependency(item['full_name'])
@@ -186,9 +171,9 @@ class GitCrawler(object):
     item['all_dependencies'] = all_unique_dependencies
     self._tree_dict[self.keyword] = item
     self._all_dependent_repo_names.add(item_name)
-    
-    PickleTree(self._tree_dict, self._raw_data_file_name)
-    PickleTree(self._all_dependent_repo_names, self._all_repos_file_name)
+
+    util.PickleTree(self._tree_dict, self._raw_data_file_name)
+    util.PickleTree(self._all_dependent_repo_names, self._all_repos_file_name)
     pprint('%d dependencies are found for %s.' % (
         len(all_unique_dependencies), self.keyword))
 
@@ -203,7 +188,7 @@ class GitCrawler(object):
     """
     all_dependencies = {}
     for file_name in VERIFY_FILES:
-      file_output, _ = GitURLOpener(self._script_url.format(
+      file_output, _ = util.GitURLOpener(self._script_url.format(
           path=repo_full_name, file=file_name))
       if 'content' in file_output:
         file_dependencies = self.CheckDependency(file_output)
@@ -246,101 +231,6 @@ class GitCrawler(object):
     return False
 
 
-def PickleTree(tree_data, file_name):
-  """Pickle output tree into file.
-
-  Will dump the tree output to file in ./data/{file_name}.pcl.
-
-  Args:
-    tree_data: Dictionary of tree info to be pickled.
-    file_name: String for pickle file name to dump data in.
-  """
-  pcl_file = os.path.join(os.path.dirname(__file__), 'data', '{}.pcl'.format(
-      file_name))
-  with open(pcl_file, 'wb') as pcl:
-    cPickle.dump(tree_data, pcl, protocol=-1)
-  pprint('Pickled: %s (%d parent results)' % (
-      file_name, len(tree_data)))
-
-
-def GetTreePickle(file_name):
-  """Get the dictionary for tree info.
-
-  Due to hourly limit on GitHub search, will constantly store info into pickle
-  dump, and retrieve the pickle file whenever applicable.
-
-  Args:
-    file_name: String for pickle file name to retrieve data from.
-
-  Returns:
-    Either empty or the found pickled tree dictionary.
-  """
-  pcl_file = os.path.join(os.path.dirname(__file__), 'data', '{}.pcl'.format(
-      file_name))
-  if os.path.isfile(pcl_file):
-    with open(pcl_file, 'rb') as pcl:
-      tree_dict = cPickle.load(pcl)
-      pprint('Get pickled %s.' % file_name)
-      return tree_dict
-  return collections.defaultdict(dict)
-
-
-def GitURLOpener(git_url):
-  """Read content from GitHub API.
-
-  Will add in headers to help make authorized calls with better formatting.
-
-  Args:
-    git_url: String for GitHub API URL.
-
-  Returns:
-    Tuple with (dictionary for response JSON content, integer for remaining
-    query rate).
-  """
-  req = url.Request(url=git_url)
-  for header in API_HEADERS:
-    req.add_header(*header)
-  try:
-    response = url.urlopen(req)
-  # If no such content exists, throw and error and return empty output.
-  except url.HTTPError, err:
-    pprint('Cannot retrieve URL info, http error %s' % err)
-    return ({}, 0)
-  content = json.loads(response.read())
-  remain_limit = int(response.info().getheader('X-RateLimit-Remaining'))
-  pprint('Retrieved response for %s, now with %s remaining limit' % (
-      git_url, remain_limit))
-  return (content, remain_limit)
-
-
-def CreateAllDependentRepos(direction, end_depth):
-  """Create the total dependent unique repo names.
-
-  Create a set that contains all found repo names that are dependent on the
-  overall tree nodes.
-
-  Args:
-    direction: String for tree crawling direction.
-    end_depth: Integer for the ending raw_data file to go through to create the
-        all_searched_repo file.
-  """
-  all_dependend_repos = set()
-  for depth in xrange(1, (end_depth + 1)):
-    data_file = GetTreePickle('{}_raw_data_depth_{}'.format(
-        direction, depth))
-    pprint('Looping through %d parent nodes in depth %d' % (
-        len(data_file), depth))
-    for parent, children in data_file.iteritems():
-      matched_repo_names = [
-          child_name for child_name, child_info in children.iteritems()
-          if child_info]
-      pprint('%s has %d dependent repos out of %d total searched repos.' % (
-          parent, len(matched_repo_names), len(children)))
-      all_dependend_repos |= set(matched_repo_names)
-  PickleTree(all_dependend_repos, '{}_all_dependent_repo_names'.format(
-      direction))
-
-
 def LoopThroughDepths(direction, start_depth, end_depth=5):
   """Loop through various depth to get corresponding output.
 
@@ -350,7 +240,7 @@ def LoopThroughDepths(direction, start_depth, end_depth=5):
     end_depth: Integer for the ending depth to loop through, default to 5.
   """
   # Set the repo generation name based on direction.
-  method_name = 'Get{}RepoList'.format(direction) 
+  method_name = 'Get{}RepoList'.format(direction)
   if start_depth == 1:
     getattr(GitCrawler('d3', direction, 1), method_name)()
     # Increment start_depth by 1 to allow following populations.
@@ -359,7 +249,7 @@ def LoopThroughDepths(direction, start_depth, end_depth=5):
       return
   for depth in xrange(start_depth, (end_depth + 1)):
     parent_file = '{}_raw_data_depth_{}'.format(direction, (depth - 1))
-    for parent, children in GetTreePickle(parent_file).iteritems():
+    for parent, children in util.GetTreePickle(parent_file).iteritems():
       # We will generate the keyword dict to loop through based on direction
       # For downward, the group contains keys in children where the
       # corresponding values are not null (which was set so for non-dependent
@@ -381,7 +271,8 @@ def LoopThroughDepths(direction, start_depth, end_depth=5):
 
 if __name__ == '__main__':
   # If we need to start rerun from a cercertain step run CreateAllDependentRepos
-  # ; usage example: CreateAllDependentRepos('downward', 2)
+  # ; usage example: util.CreateAllDependentRepos('downward', 2)
   # Get all git data for 6 depths.
-  LoopThroughDepths('downward', 1, 6)
+  LoopThroughDepths('downward', 1)
   LoopThroughDepths('upward', 1, 6)
+
