@@ -54,15 +54,14 @@ class TreeGenerator(object):
     """Populate tree for the direction.
 
     We will start with the original node, where parent name is D3, and
-    propagate through the rest of the tree.
+    propagate through the rest of the tree. We will write the output
+    to an overall json file so that we can just read in one file from
+    the actual web template.
     """
     self._json_output['children'] = getattr(self, 'Map{}Child'.format(
         self.direction))('d3', 1)
-    json_file = os.path.join(os.path.dirname(
-        __file__), 'data', '{}_tree_data.json'.format(self.direction))
-    with open(json_file, 'w') as js:
-      json.dump(self._json_output, js, indent=2, separators=(',', ':'))
-    logging.info('Output tree to json file for %s', self.direction)
+    logging.info('Populated JSON tree for %s', self.direction)
+    return self._json_output
 
   # pylint: disable=g-explicit-bool-comparison
   def MapdownwardChild(self, parent_name, depth):
@@ -172,5 +171,10 @@ class TreeGenerator(object):
 
 
 if __name__ == '__main__':
-  TreeGenerator('downward', 5).PopulateTree()
-  TreeGenerator('upward', 5).PopulateTree()
+  overall_tree_data = {}
+  overall_tree_data['downward'] = TreeGenerator('downward', 5).PopulateTree()
+  overall_tree_data['upward'] = TreeGenerator('upward', 5).PopulateTree()
+  json_file = os.path.join(os.path.dirname(__file__), 'data/all_tree_data.json')
+  with open(json_file, 'w') as js:
+    json.dump(overall_tree_data, js, indent=2, separators=(',', ':'))
+  logging.info('All tree data is output to JSON file.')
