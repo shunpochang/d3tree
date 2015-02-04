@@ -10,14 +10,6 @@ from pprint import pprint
 import sys
 import urllib2 as url
 
-# Add authentication and accept format to Git API request, for the basic
-# crawler, we set token as the first argument.
-API_HEADERS = [
-    ('Accept', 'application/vnd.github.v3.text-match+json'),
-    ('Authorization', 'token {user_token}'.format(
-        user_token=(sys.argv[1] or None))),
-]
-
 
 def PickleTree(tree_data, file_name):
   """Pickle output tree into file.
@@ -70,8 +62,15 @@ def GitURLOpener(git_url):
     Tuple with (dictionary for response JSON content, integer for remaining
     query rate).
   """
+  # Add authentication and accept format to Git API request, for the basic
+  # crawler, we set token as the first argument.
+  api_headers = [
+      ('Accept', 'application/vnd.github.v3.text-match+json'),
+      ('Authorization', 'token {user_token}'.format(
+          user_token=(sys.argv[1] or None))),
+  ]
   req = url.Request(url=git_url)
-  for header in API_HEADERS:
+  for header in api_headers:
     req.add_header(*header)
   try:
     response = url.urlopen(req)
