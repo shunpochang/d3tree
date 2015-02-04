@@ -8,3 +8,6 @@ The tree shows the dependencies related to D3 development:
 
 The main logic to pull these dependencies and generating tree data is in [populate_tree_data/] (https://github.com/shunpochang/d3tree/tree/master/populate_tree_data), where package.json and bower.json files (to include both NPM and Bower installation) are crawled to get the top matching libraries.
 
+![alt text][demo_png]
+[demo_png]: https://github.com/shunpochang/d3tree/blob/master/thumbnail.png "DEMO PNG"
+
