@@ -14,20 +14,21 @@ import utilities as util
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 class TreeGenerator(object):
   """Generate tree JSON for either upward or downward.
-  
+
   The output will be a JSON object that contains children libraries for levels
   specifed by the depth number.
-  
+
   Attributes:
     direction: String for direction to generate tree for.
     max_depth: Integer for number of depths to populate tree for.
   """
-  
+
   def __init__(self, direction, max_depth):
     """Initialize tree data and tree output.
-    
+
     Args:
       direction: String for direction to generate tree for.
       max_depth: Integer for number of depths to populate tree for.
@@ -51,7 +52,7 @@ class TreeGenerator(object):
 
   def PopulateTree(self):
     """Populate tree for the direction.
-    
+
     We will start with the original node, where parent name is D3, and
     propagate through the rest of the tree.
     """
@@ -61,12 +62,13 @@ class TreeGenerator(object):
         __file__), 'data', '{}_tree_data.json'.format(self.direction))
     with open(json_file, 'w') as js:
       json.dump(self._json_output, js)
-    logging.info('Output tree to json file for %s' % self.direction)
+    logging.info('Output tree to json file for %s', self.direction)
 
+  # pylint: disable=g-explicit-bool-comparison
   def MapdownwardChild(self, parent_name, depth):
     """Populate D3-tree-compatible structure for each downward child.
 
-    For each child node, from the tree dictionary, get the children keys and 
+    For each child node, from the tree dictionary, get the children keys and
     children generation, and recurse through the same function to get future
     generation details.
 
@@ -82,7 +84,7 @@ class TreeGenerator(object):
     # If depth exceeds the max amount, return empty array.
     if depth > self.max_depth:
       return children_array
-    logging.info('Populating child for %s...' % parent_name)
+    logging.info('Populating child for %s...', parent_name)
     depth += 1
     num_mapped_children = 0
     for child_name, child_info in self._tree_data[parent_name].iteritems():
@@ -102,16 +104,16 @@ class TreeGenerator(object):
         child_json['repeated'] = True
       num_mapped_children += 1
       children_array.append(child_json)
-    logging.info('%d of children were populated for %s' % (
-        num_mapped_children, parent_name))
+    logging.info('%d of children were populated for %s',
+                 num_mapped_children, parent_name)
     return children_array
-  
+
   def MapupwardChild(self, parent_name, depth):
     """Populate D3-tree-compatible structure for each upward child.
 
     For each child node, from their children array, get the children keys and
     find the children info from the tree dictionary, and recurse through the
-    same function to get future generation details. 
+    same function to get future generation details.
     Using parent_object would avoid re-calling the same object twice, but to
     allow reuseable PopulateTree code, plus there are only little nodes to loop
     through, we will stick with parent_name.
@@ -128,7 +130,7 @@ class TreeGenerator(object):
     # If depth exceeds the max amount, return empty array.
     if depth > self.max_depth:
       return children_array
-    logging.info('Populating child for %s...' % parent_name)
+    logging.info('Populating child for %s...', parent_name)
     depth += 1
     num_mapped_children = 0
     for child_name, child_info in self._tree_data[parent_name][
@@ -150,24 +152,23 @@ class TreeGenerator(object):
         child_json['repeated'] = True
       num_mapped_children += 1
       children_array.append(child_json)
-    logging.info('%d of children were populated for %s' % (
-        num_mapped_children, parent_name))
+    logging.info('%d of children were populated for %s',
+                 num_mapped_children, parent_name)
     return children_array
-  
+
   def GetNodeDisplayName(self, node_object):
     """We will create customized names for tree nodes.
-    
+
     The display is set to be '{path_name} ({create_date})'.
 
     Args:
-      node_name: Dictionary containing the repo detail.
+      node_object: Dictionary containing the repo detail.
 
     Returns:
       String for the display name.
     """
     return '{} ({})'.format(
         node_object['full_name'], node_object['created_at'][:4])
-
 
 
 if __name__ == '__main__':
