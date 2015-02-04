@@ -61,7 +61,7 @@ class TreeGenerator(object):
     json_file = os.path.join(os.path.dirname(
         __file__), 'data', '{}_tree_data.json'.format(self.direction))
     with open(json_file, 'w') as js:
-      json.dump(self._json_output, js)
+      json.dump(self._json_output, js, indent=2, separators=(',', ':'))
     logging.info('Output tree to json file for %s', self.direction)
 
   # pylint: disable=g-explicit-bool-comparison
