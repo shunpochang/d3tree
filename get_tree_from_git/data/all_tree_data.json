@@ -1,0 +1,440 @@
+{
+  "downward":{
+    "direction":"downward",
+    "name":"origin",
+    "children":[
+      {
+        "name":"qrohlf/trianglify (2014)",
+        "children":[
+          {
+            "name":"gstf/trianglify-wallpaper (2014)",
+            "children":[]
+          },
+          {
+            "name":"kimar/trianglify-api (2014)",
+            "children":[]
+          }
+        ]
+      },
+      {
+        "name":"NathanEpstein/D3xter (2014)",
+        "children":[]
+      },
+      {
+        "name":"andredumas/techan.js (2014)",
+        "children":[]
+      },
+      {
+        "name":"jiahuang/d3-timeline (2012)",
+        "children":[]
+      },
+      {
+        "name":"MinnPost/simple-map-d3 (2013)",
+        "children":[]
+      },
+      {
+        "name":"benkeen/d3pie (2013)",
+        "children":[]
+      },
+      {
+        "name":"lithiumtech/li-visualizations (2014)",
+        "children":[]
+      },
+      {
+        "name":"misoproject/d3.chart (2013)",
+        "children":[
+          {
+            "name":"stucco/ontology-editor (2013)",
+            "children":[]
+          },
+          {
+            "name":"knownasilya/d3.chart.pie (2014)",
+            "children":[]
+          },
+          {
+            "name":"chartyjs/charty (2013)",
+            "children":[]
+          }
+        ]
+      },
+      {
+        "name":"racker/glimpse.js (2012)",
+        "children":[]
+      },
+      {
+        "name":"jdarling/d3rrc (2014)",
+        "children":[]
+      },
+      {
+        "name":"zmaril/d3-bootstrap-plugins (2012)",
+        "children":[]
+      },
+      {
+        "name":"marmelab/ArcheoloGit (2014)",
+        "children":[]
+      },
+      {
+        "name":"topheman/topheman-datavisual (2014)",
+        "children":[]
+      },
+      {
+        "name":"krispo/angular-nvd3 (2014)",
+        "children":[
+          {
+            "name":"AngeloCiffa/ionicTest1 (2014)",
+            "children":[]
+          }
+        ]
+      },
+      {
+        "name":"heavysixer/d4 (2014)",
+        "children":[]
+      },
+      {
+        "name":"alexandersimoes/d3plus (2013)",
+        "children":[]
+      },
+      {
+        "name":"chinmaymk/angular-charts (2013)",
+        "children":[
+          {
+            "name":"chenop/angular-charts-example (2013)",
+            "children":[]
+          }
+        ]
+      },
+      {
+        "name":"turban/d3.slider (2013)",
+        "children":[]
+      },
+      {
+        "name":"markmarkoh/datamaps (2012)",
+        "children":[
+          {
+            "name":"dmachat/angular-datamaps (2014)",
+            "children":[]
+          }
+        ]
+      },
+      {
+        "name":"Caged/d3-tip (2012)",
+        "children":[
+          {
+            "name":"deciob/d3-tip-amd-example (2014)",
+            "children":[]
+          }
+        ]
+      },
+      {
+        "name":"enjalot/tributary (2012)",
+        "children":[
+          {
+            "name":"mrdaniellewis/gulp-tributary (2015)",
+            "children":[]
+          }
+        ]
+      },
+      {
+        "name":"palantir/plottable (2014)",
+        "children":[
+          {
+            "name":"palantir/plottable-website (2014)",
+            "children":[]
+          },
+          {
+            "name":"palantir/chartographer (2014)",
+            "children":[]
+          }
+        ]
+      },
+      {
+        "name":"esbullington/react-d3 (2014)",
+        "children":[]
+      },
+      {
+        "name":"cpettitt/dagre-d3 (2013)",
+        "children":[
+          {
+            "name":"andrvb/dagre-d3-umd (2014)",
+            "children":[]
+          }
+        ]
+      },
+      {
+        "name":"masayuki0812/c3 (2013)",
+        "children":[
+          {
+            "name":"dentboard/c3-angularjs (2014)",
+            "children":[]
+          },
+          {
+            "name":"joneshf/purescript-c3 (2014)",
+            "children":[]
+          },
+          {
+            "name":"zebrajs/c3-line-backbone (2014)",
+            "children":[]
+          },
+          {
+            "name":"maxklenk/angular-chart (2014)",
+            "children":[
+              {
+                "name":"maxklenk/angular-chart-presentation (2014)",
+                "children":[]
+              }
+            ]
+          },
+          {
+            "name":"Glavin001/ember-c3 (2014)",
+            "children":[
+              {
+                "name":"chrism/d3c3 (2014)",
+                "children":[]
+              }
+            ]
+          },
+          {
+            "name":"carlosmontes002/ng-c3 (2014)",
+            "children":[]
+          },
+          {
+            "name":"jgasteiz/moneys (2014)",
+            "children":[]
+          },
+          {
+            "name":"arunsivasankaran/Simle-C3-Graph-demo (2014)",
+            "children":[]
+          },
+          {
+            "name":"wasilak/angular-c3-simple (2014)",
+            "children":[]
+          },
+          {
+            "name":"jettro/c3-angular-sample (2014)",
+            "children":[]
+          },
+          {
+            "name":"aZerato/c3-sample (2014)",
+            "children":[]
+          }
+        ]
+      },
+      {
+        "name":"dc-js/dc.js (2012)",
+        "children":[
+          {
+            "name":"TomNeyland/angular-dc (2013)",
+            "children":[]
+          },
+          {
+            "name":"TechToThePeople/bdc (2015)",
+            "children":[]
+          },
+          {
+            "name":"andrewreedy/ember-dc (2014)",
+            "children":[]
+          }
+        ]
+      },
+      {
+        "name":"plouc/mozaik (2014)",
+        "children":[]
+      },
+      {
+        "name":"adnan-wahab/pathgl (2013)",
+        "children":[]
+      },
+      {
+        "name":"ripple/ripplecharts-frontend (2013)",
+        "children":[]
+      },
+      {
+        "name":"NickQiZhu/d3-cookbook (2013)",
+        "children":[]
+      },
+      {
+        "name":"emeeks/d3-carto-map (2014)",
+        "children":[
+          {
+            "name":"lmullen/asch-2015-talk (2014)",
+            "children":[]
+          }
+        ]
+      },
+      {
+        "name":"Asymmetrik/leaflet-d3 (2014)",
+        "children":[]
+      },
+      {
+        "name":"pearson-enabling-technologies/bridle (2013)",
+        "children":[]
+      },
+      {
+        "name":"Wildhoney/Leaflet.FreeDraw (2014)",
+        "children":[]
+      },
+      {
+        "name":"interactivethings/d3-grid (2013)",
+        "children":[]
+      }
+    ]
+  },
+  "upward":{
+    "direction":"upward",
+    "name":"origin",
+    "children":[
+      {
+        "name":"tmpvar/jsdom (2010)",
+        "children":[
+          {
+            "name":"dperini/nwmatcher (2009)",
+            "children":[]
+          },
+          {
+            "name":"request/request (2011)",
+            "children":[
+              {
+                "name":"hapijs/qs (2014)",
+                "children":[]
+              },
+              {
+                "name":"rvagg/bl (2013)",
+                "children":[
+                  {
+                    "name":"iojs/readable-stream (2012)",
+                    "children":[
+                      {
+                        "name":"isaacs/inherits (2011)",
+                        "children":[]
+                      },
+                      {
+                        "name":"juliangruber/isarray (2013)",
+                        "children":[]
+                      },
+                      {
+                        "name":"isaacs/core-util-is (2013)",
+                        "children":[]
+                      },
+                      {
+                        "name":"substack/string_decoder (2013)",
+                        "children":[]
+                      },
+                      {
+                        "name":"TooTallNate/util-deprecate (2014)",
+                        "children":[]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name":"broofa/node-uuid (2010)",
+                "children":[]
+              },
+              {
+                "name":"isaacs/json-stringify-safe (2013)",
+                "children":[]
+              },
+              {
+                "name":"mikeal/tunnel-agent (2013)",
+                "children":[]
+              },
+              {
+                "name":"request/caseless (2013)",
+                "children":[]
+              },
+              {
+                "name":"rvagg/isstream (2014)",
+                "children":[]
+              },
+              {
+                "name":"lelandtseng/form-data (2011)",
+                "children":[]
+              },
+              {
+                "name":"request/oauth-sign (2013)",
+                "children":[]
+              },
+              {
+                "name":"goinstant/tough-cookie (2011)",
+                "children":[]
+              },
+              {
+                "name":"jshttp/mime-types (2014)",
+                "children":[
+                  {
+                    "name":"jshttp/mime-db (2014)",
+                    "children":[]
+                  }
+                ]
+              },
+              {
+                "name":"hueniverse/hawk (2012)",
+                "children":[
+                  {
+                    "name":"hapijs/hoek (2012)",
+                    "children":[]
+                  },
+                  {
+                    "name":"hapijs/boom (2013)",
+                    "children":[
+                      {
+                        "repeated":true,
+                        "name":"hapijs/hoek (2012)",
+                        "children":[]
+                      }
+                    ]
+                  },
+                  {
+                    "name":"hapijs/cryptiles (2013)",
+                    "children":[
+                      {
+                        "repeated":true,
+                        "name":"hapijs/boom (2013)",
+                        "children":[]
+                      }
+                    ]
+                  },
+                  {
+                    "name":"hueniverse/sntp (2013)",
+                    "children":[
+                      {
+                        "repeated":true,
+                        "name":"hapijs/hoek (2012)",
+                        "children":[]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name":"request/forever-agent (2013)",
+                "children":[]
+              }
+            ]
+          },
+          {
+            "name":"brianmcd/contextify (2011)",
+            "children":[]
+          },
+          {
+            "name":"inikulin/parse5 (2013)",
+            "children":[]
+          },
+          {
+            "name":"jsdom/xml-name-validator (2014)",
+            "children":[]
+          },
+          {
+            "name":"iriscouch/browser-request (2011)",
+            "children":[]
+          },
+          {
+            "name":"ilinsky/xmlhttprequest (2011)",
+            "children":[]
+          }
+        ]
+      }
+    ]
+  }
+}

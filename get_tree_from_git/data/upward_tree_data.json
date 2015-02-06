@@ -1,0 +1,158 @@
+{
+  "direction":"upward",
+  "name":"origin",
+  "children":[
+    {
+      "name":"tmpvar/jsdom (2010)",
+      "children":[
+        {
+          "name":"dperini/nwmatcher (2009)",
+          "children":[]
+        },
+        {
+          "name":"request/request (2011)",
+          "children":[
+            {
+              "name":"hapijs/qs (2014)",
+              "children":[]
+            },
+            {
+              "name":"rvagg/bl (2013)",
+              "children":[
+                {
+                  "name":"iojs/readable-stream (2012)",
+                  "children":[
+                    {
+                      "name":"isaacs/inherits (2011)",
+                      "children":[]
+                    },
+                    {
+                      "name":"juliangruber/isarray (2013)",
+                      "children":[]
+                    },
+                    {
+                      "name":"isaacs/core-util-is (2013)",
+                      "children":[]
+                    },
+                    {
+                      "name":"substack/string_decoder (2013)",
+                      "children":[]
+                    },
+                    {
+                      "name":"TooTallNate/util-deprecate (2014)",
+                      "children":[]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name":"broofa/node-uuid (2010)",
+              "children":[]
+            },
+            {
+              "name":"isaacs/json-stringify-safe (2013)",
+              "children":[]
+            },
+            {
+              "name":"mikeal/tunnel-agent (2013)",
+              "children":[]
+            },
+            {
+              "name":"request/caseless (2013)",
+              "children":[]
+            },
+            {
+              "name":"rvagg/isstream (2014)",
+              "children":[]
+            },
+            {
+              "name":"lelandtseng/form-data (2011)",
+              "children":[]
+            },
+            {
+              "name":"request/oauth-sign (2013)",
+              "children":[]
+            },
+            {
+              "name":"goinstant/tough-cookie (2011)",
+              "children":[]
+            },
+            {
+              "name":"jshttp/mime-types (2014)",
+              "children":[
+                {
+                  "name":"jshttp/mime-db (2014)",
+                  "children":[]
+                }
+              ]
+            },
+            {
+              "name":"hueniverse/hawk (2012)",
+              "children":[
+                {
+                  "name":"hapijs/hoek (2012)",
+                  "children":[]
+                },
+                {
+                  "name":"hapijs/boom (2013)",
+                  "children":[
+                    {
+                      "repeated":true,
+                      "name":"hapijs/hoek (2012)",
+                      "children":[]
+                    }
+                  ]
+                },
+                {
+                  "name":"hapijs/cryptiles (2013)",
+                  "children":[
+                    {
+                      "repeated":true,
+                      "name":"hapijs/boom (2013)",
+                      "children":[]
+                    }
+                  ]
+                },
+                {
+                  "name":"hueniverse/sntp (2013)",
+                  "children":[
+                    {
+                      "repeated":true,
+                      "name":"hapijs/hoek (2012)",
+                      "children":[]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name":"request/forever-agent (2013)",
+              "children":[]
+            }
+          ]
+        },
+        {
+          "name":"brianmcd/contextify (2011)",
+          "children":[]
+        },
+        {
+          "name":"inikulin/parse5 (2013)",
+          "children":[]
+        },
+        {
+          "name":"jsdom/xml-name-validator (2014)",
+          "children":[]
+        },
+        {
+          "name":"iriscouch/browser-request (2011)",
+          "children":[]
+        },
+        {
+          "name":"ilinsky/xmlhttprequest (2011)",
+          "children":[]
+        }
+      ]
+    }
+  ]
+}
